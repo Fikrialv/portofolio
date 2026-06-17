@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="id" data-lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Fikri.dev — Full Stack Programmer</title>
+  <meta name="description" content="Portfolio Fikri Alvi Ramadhan — Full Stack Programmer & Data Analyst." />
+  <meta name="author" content="Fikri Alvi Ramadhan" />
+  <meta name="robots" content="index, follow" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <!-- Static-site security for GitHub Pages -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; font-src 'self'; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests" />
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), bluetooth=(), interest-cohort=()" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin" />
+  <meta http-equiv="Cross-Origin-Resource-Policy" content="same-origin" />
+  <meta name="format-detection" content="telephone=no, email=no, address=no" />
+  <meta name="color-scheme" content="dark light" />
+
+  <meta property="og:title" content="Fikri.dev — Full Stack Programmer" />
+  <meta property="og:description" content="Modern, responsive, and lightweight developer portfolio." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="foto.jpeg" />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #05070d;
+      --card: rgba(13, 19, 34, .86);
+      --card-2: rgba(18, 27, 45, .92);
+      --text: #eff4ff;
+      --muted: #9eabc2;
+      --muted-2: #71809d;
+      --line: rgba(255,255,255,.10);
+      --line-2: rgba(255,255,255,.16);
+      --accent: #39ff8e;
+      --accent-2: #49dfff;
+      --accent-3: #7b7dff;
+      --shadow: 0 18px 56px rgba(0,0,0,.30);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --container: min(1180px, calc(100% - 40px));
+      --ease: cubic-bezier(.22,.72,.2,1);
+    }
+
+    body[data-theme="light"] {
+      --bg: #f4f8ff;
+      --card: rgba(255,255,255,.90);
+      --card-2: rgba(245,248,255,.96);
+      --text: #0d1630;
+      --muted: #52627e;
+      --muted-2: #72809b;
+      --line: rgba(7,16,34,.10);
+      --line-2: rgba(7,16,34,.16);
+      --accent: #06cf72;
+      --accent-2: #18bde7;
+      --accent-3: #5665ff;
+      --shadow: 0 18px 48px rgba(34,44,74,.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(57,255,142,.13), transparent 24rem),
+        radial-gradient(circle at 86% 14%, rgba(73,223,255,.10), transparent 25rem),
+        radial-gradient(circle at 48% 110%, rgba(123,125,255,.08), transparent 30rem),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.68;
+      overflow-x: hidden;
+      transition: background .25s ease, color .25s ease;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .24;
+      background-image:
+        linear-gradient(rgba(255,255,255,.052) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.052) 1px, transparent 1px);
+      background-size: 58px 58px;
+      mask-image: linear-gradient(to bottom, black 8%, transparent 78%);
+    }
+
+    body[data-theme="light"]::after {
+      opacity: .16;
+      background-image:
+        linear-gradient(rgba(7,16,34,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(7,16,34,.06) 1px, transparent 1px);
+    }
+
+    ::selection { background: rgba(57,255,142,.24); color: white; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { font: inherit; }
+
+    .scroll-progress {
+      position: fixed;
+      inset: 0 auto auto 0;
+      width: 0%;
+      height: 3px;
+      z-index: 2000;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+    }
+
+    .container { width: var(--container); margin-inline: auto; }
+    .section { padding: clamp(64px, 8vw, 94px) 0; position: relative; }
+
+    .nav {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1180px, calc(100% - 28px));
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--card) 88%, transparent);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: auto;
+      font-size: clamp(17px, 2vw, 19px);
+      font-weight: 950;
+      letter-spacing: -.05em;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 14px;
+      color: #04130a;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+
+    .brand-mark svg { width: 24px; height: 24px; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 13px;
+      border-radius: 999px;
+      color: color-mix(in srgb, var(--text) 78%, transparent);
+      font-size: 13px;
+      font-weight: 760;
+      transition: .2s var(--ease);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(255,255,255,.07);
+    }
+
+    body[data-theme="light"] .nav-links a:hover { background: rgba(9,16,31,.06); }
+
+    .nav-cta {
+      color: #04130a !important;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2)) !important;
+      font-weight: 900 !important;
+    }
+
+    .nav-tools { display: flex; align-items: center; gap: 7px; }
+
+    .switcher {
+      display: inline-flex;
+      gap: 3px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+    }
+
+    body[data-theme="light"] .switcher { background: rgba(9,16,31,.04); }
+
+    .switcher button {
+      min-height: 31px;
+      padding: 0 10px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .switcher button.active {
+      color: #04130a;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+
+    .switcher svg { width: 13px; height: 13px; }
+
+    .menu-btn {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 124px 0 66px;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.04fr) minmax(360px, .96fr);
+      align-items: center;
+      gap: clamp(30px, 5vw, 44px);
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 18px;
+      padding: 8px 13px;
+      border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--accent) 8%, transparent);
+      color: var(--accent);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11.5px;
+      font-weight: 850;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 10%, transparent);
+      animation: pulse 1.7s infinite;
+    }
+
+    @keyframes pulse { 50% { transform: scale(.75); opacity: .7; } }
+
+    .headline {
+      max-width: 800px;
+      margin-bottom: 18px;
+      font-size: clamp(42px, 6.1vw, 84px);
+      line-height: .96;
+      letter-spacing: -.065em;
+      font-weight: 1000;
+    }
+
+    .headline .grad {
+      color: transparent;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2), color-mix(in srgb, var(--accent-3) 70%, white));
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .hero-copy {
+      max-width: 650px;
+      margin-bottom: 24px;
+      color: var(--muted);
+      font-size: clamp(15.5px, 1.55vw, 18.5px);
+      line-height: 1.72;
+    }
+
+    .hero-actions,
+    .hero-socials,
+    .hero-quickmeta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-actions { margin-bottom: 18px; }
+    .hero-socials { margin-bottom: 22px; }
+
+    .btn {
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 21px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      font-size: 14.5px;
+      font-weight: 900;
+      transition: transform .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease);
+    }
+
+    .btn:hover,
+    .icon-btn:hover,
+    .stack-card:hover,
+    .project-card:hover,
+    .step-card:hover,
+    .journey-card:hover,
+    .contact-mini:hover,
+    .project-link:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #04130a;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+
+    .btn-ghost {
+      color: var(--text);
+      background: rgba(255,255,255,.045);
+    }
+
+    body[data-theme="light"] .btn-ghost { background: rgba(9,16,31,.04); }
+
+    .icon-btn {
+      width: 44px;
+      height: 44px;
+      display: inline-grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      transition: .2s var(--ease);
+    }
+
+    body[data-theme="light"] .icon-btn { background: rgba(9,16,31,.04); }
+
+    .icon-btn:hover {
+      color: var(--accent);
+      border-color: color-mix(in srgb, var(--accent) 30%, var(--line));
+    }
+
+    .icon-btn svg { width: 20px; height: 20px; }
+
+    .quickmeta {
+      min-width: 0;
+      flex: 1 1 150px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+    }
+
+    body[data-theme="light"] .quickmeta { background: rgba(255,255,255,.75); }
+
+    .quickmeta strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: clamp(20px, 2.5vw, 25px);
+      line-height: 1;
+      letter-spacing: -.04em;
+    }
+
+    .quickmeta span {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 780;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      line-height: 1.35;
+    }
+
+    .visual-wrap {
+      position: relative;
+      min-height: 620px;
+    }
+
+    .browser-card {
+      position: relative;
+      width: min(100%, 550px);
+      margin-left: auto;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    body[data-theme="light"] .browser-card { background: rgba(255,255,255,.86); }
+
+    .browser-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      padding: 1px;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: .55;
+      background: linear-gradient(135deg, rgba(57,255,142,.5), rgba(73,223,255,.22), rgba(123,125,255,.25));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+
+    .browser-top {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .dot { width: 11px; height: 11px; border-radius: 999px; display: inline-block; }
+    .dot.red { background: #ff627e; }
+    .dot.yellow { background: #ffcc68; }
+    .dot.green { background: #35ff8d; }
+
+    .browser-url {
+      min-width: 0;
+      min-height: 34px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      margin-left: 8px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(0,0,0,.14);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    body[data-theme="light"] .browser-url { background: rgba(9,16,31,.035); }
+
+    .photo-stage {
+      display: grid;
+      place-items: center;
+      min-height: 515px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 20% 16%, rgba(255,255,255,.10), transparent 16rem),
+        linear-gradient(135deg, rgba(57,255,142,.11), rgba(73,223,255,.06) 58%, rgba(123,125,255,.06));
+    }
+
+    .photo-frame {
+      width: min(100%, 430px);
+      height: 490px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 24px;
+      background: #0b1324;
+      box-shadow: 0 18px 38px rgba(0,0,0,.24);
+    }
+
+    .photo-frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, transparent 60%, rgba(8,15,28,.18)),
+        linear-gradient(135deg, rgba(57,255,142,.05), transparent 34%, rgba(73,223,255,.05));
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(1.08) contrast(1.03) brightness(1.03);
+    }
+
+    .floating-panel {
+      position: absolute;
+      z-index: 4;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: color-mix(in srgb, var(--card) 92%, transparent);
+      box-shadow: 0 12px 32px rgba(0,0,0,.22);
+    }
+
+    body[data-theme="light"] .floating-panel { background: rgba(255,255,255,.92); }
+
+    .panel-mini {
+      top: 78px;
+      left: -10px;
+      min-width: 200px;
+      padding: 12px 14px;
+      animation: floatLite 5.8s ease-in-out infinite;
+    }
+
+    .panel-mini .mini-label {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .panel-mini .mini-value {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 6px;
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .panel-mini .mini-value span:last-child {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .panel-stack {
+      right: 0;
+      bottom: 94px;
+      width: 238px;
+      padding: 14px;
+      animation: floatLite 6s ease-in-out infinite reverse;
+    }
+
+    .panel-stack h4 { margin-bottom: 11px; font-size: 14px; }
+    .skill-bars { display: grid; gap: 9px; }
+    .skill-bars .bar { display: grid; gap: 6px; }
+    .skill-bars .bar small {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .progress-line {
+      width: 100%;
+      height: 8px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+    }
+
+    .progress-line span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      animation: growLine 1.4s ease both;
+    }
+
+    .code-window {
+      position: absolute;
+      left: 0;
+      bottom: 18px;
+      z-index: 5;
+      width: min(100%, 395px);
+      padding: 14px 16px;
+      border: 1px solid rgba(57,255,142,.22);
+      border-radius: 18px;
+      background: rgba(4,8,18,.90);
+      box-shadow: 0 14px 34px rgba(0,0,0,.24);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.82;
+      animation: floatLite 6.2s ease-in-out infinite;
+    }
+
+    body[data-theme="light"] .code-window { background: rgba(255,255,255,.94); }
+
+    .code-muted { color: var(--muted-2); }
+    .code-line { display: block; color: color-mix(in srgb, var(--accent) 78%, var(--text)); }
+
+    .typing {
+      display: inline-block;
+      width: 14ch;
+      overflow: hidden;
+      vertical-align: bottom;
+      white-space: nowrap;
+      animation: typing 3.4s steps(14) infinite alternate;
+    }
+
+    @keyframes typing { from { width: 0; } }
+    @keyframes growLine { from { width: 0; } }
+    @keyframes floatLite { 50% { transform: translateY(-4px); } }
+
+    .marquee {
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+
+    body[data-theme="light"] .marquee { background: rgba(255,255,255,.7); }
+
+    .marquee-track {
+      display: flex;
+      gap: 12px;
+      width: max-content;
+      padding: 14px 0;
+      animation: marquee 34s linear infinite;
+    }
+
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255,255,255,.03);
+      font-size: 12.5px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .marquee-item svg { width: 15px; height: 15px; color: var(--accent); }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    .eyebrow {
+      margin-bottom: 9px;
+      color: var(--accent);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12.5px;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      max-width: 760px;
+      font-size: clamp(30px, 4.4vw, 58px);
+      line-height: 1.01;
+      letter-spacing: -.06em;
+      font-weight: 1000;
+    }
+
+    .section-desc {
+      max-width: 410px;
+      color: var(--muted);
+      font-size: 14.5px;
+      line-height: 1.68;
+    }
+
+    .stack-grid,
+    .work-grid,
+    .journey-grid,
+    .contact-grid {
+      display: grid;
+      gap: 15px;
+    }
+
+    .stack-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .work-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .journey-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .stack-card,
+    .project-card,
+    .workflow-main,
+    .step-card,
+    .journey-card,
+    .contact-card,
+    .contact-mini {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+      box-shadow: 0 12px 36px rgba(0,0,0,.18);
+    }
+
+    body[data-theme="light"] .stack-card,
+    body[data-theme="light"] .project-card,
+    body[data-theme="light"] .workflow-main,
+    body[data-theme="light"] .step-card,
+    body[data-theme="light"] .journey-card,
+    body[data-theme="light"] .contact-card,
+    body[data-theme="light"] .contact-mini {
+      background: rgba(255,255,255,.88);
+    }
+
+    .stack-card {
+      padding: 22px;
+      border-radius: 24px;
+      transition: .2s var(--ease);
+    }
+
+    .stack-card:hover,
+    .project-card:hover,
+    .step-card:hover,
+    .journey-card:hover,
+    .contact-mini:hover {
+      border-color: color-mix(in srgb, var(--accent) 24%, var(--line));
+    }
+
+    .stack-tag {
+      width: 34px;
+      height: 34px;
+      display: inline-grid;
+      place-items: center;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 11%, transparent);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .stack-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 15px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      color: var(--accent);
+      background: rgba(255,255,255,.04);
+    }
+
+    .stack-icon svg { width: 22px; height: 22px; }
+    .stack-card h3 { margin-bottom: 9px; font-size: 20px; line-height: 1.15; }
+    .stack-card p { color: var(--muted); font-size: 13.5px; line-height: 1.62; }
+
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 26px;
+      transition: .2s var(--ease);
+    }
+
+    .project-screen {
+      min-height: 172px;
+      padding: 15px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(57,255,142,.14), rgba(73,223,255,.08) 42%, rgba(123,125,255,.08));
+    }
+
+    .screen-inner {
+      width: 100%;
+      height: 100%;
+      min-height: 142px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: rgba(5,8,17,.78);
+    }
+
+    body[data-theme="light"] .screen-inner { background: rgba(255,255,255,.82); }
+
+    .screen-bars { display: flex; gap: 9px; margin-bottom: 16px; }
+    .screen-bars span {
+      width: 48px;
+      height: 9px;
+      display: block;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+    }
+
+    body[data-theme="light"] .screen-bars span { background: rgba(8,17,33,.08); }
+
+    .screen-kpi { display: grid; gap: 10px; }
+    .screen-kpi span {
+      height: 14px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(57,255,142,.28), rgba(73,223,255,.12));
+    }
+
+    .screen-kpi span:nth-child(1){ width: 82%; }
+    .screen-kpi span:nth-child(2){ width: 66%; }
+    .screen-kpi span:nth-child(3){ width: 90%; }
+
+
+    .project-image-screen {
+      min-height: 238px;
+      padding: 0;
+      overflow: hidden;
+      background: #06100b;
+    }
+
+    .project-image-screen img {
+      width: 100%;
+      height: 100%;
+      min-height: 238px;
+      object-fit: contain;
+      object-position: top center;
+      display: block;
+      transition: transform .35s var(--ease), filter .35s var(--ease);
+    }
+
+    .project-card:hover .project-image-screen img {
+      transform: scale(1.04);
+      filter: saturate(1.05) contrast(1.03);
+    }
+
+    .project-body { padding: 20px; }
+
+    .project-label {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 11%, transparent);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .project-body h3 { margin-bottom: 10px; font-size: 21px; line-height: 1.12; }
+    .project-body p { color: var(--muted); font-size: 14px; line-height: 1.62; margin-bottom: 15px; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .project-link {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.05);
+      transition: .2s var(--ease);
+    }
+
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .workflow-main {
+      position: relative;
+      overflow: hidden;
+      padding: 26px;
+      border-radius: 28px;
+    }
+
+    .workflow-main::after {
+      content: "";
+      position: absolute;
+      right: -50px;
+      bottom: -50px;
+      width: 210px;
+      height: 210px;
+      border-radius: 999px;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(57,255,142,.14), transparent 64%);
+    }
+
+    .workflow-main h3 {
+      max-width: 650px;
+      margin-bottom: 12px;
+      font-size: clamp(27px, 3.4vw, 42px);
+      line-height: 1.04;
+      letter-spacing: -.05em;
+    }
+
+    .workflow-main p {
+      max-width: 640px;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 14.5px;
+      line-height: 1.68;
+    }
+
+    .workflow-points {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .workflow-point {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.03);
+    }
+
+    body[data-theme="light"] .workflow-point { background: rgba(8,17,33,.025); }
+
+    .workflow-point .wp-icon {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 14px;
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+    }
+
+    .workflow-point .wp-icon svg { width: 19px; height: 19px; }
+    .workflow-point h4 { margin-bottom: 3px; font-size: 15px; }
+    .workflow-point p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+
+    .terminal {
+      padding: 15px 17px;
+      border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--line));
+      border-radius: 18px;
+      background: rgba(5,8,18,.88);
+      color: #dbe6ff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12.5px;
+      line-height: 1.78;
+    }
+
+    body[data-theme="light"] .terminal { background: rgba(246,250,255,.94); color: #23324f; }
+
+    .steps { display: grid; gap: 12px; }
+
+    .step-card {
+      padding: 18px;
+      border-radius: 22px;
+      overflow: hidden;
+      transition: .2s var(--ease);
+    }
+
+    .step-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--accent);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12.5px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .step-badge svg { width: 17px; height: 17px; }
+
+    .step-arrow {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      color: var(--muted);
+    }
+
+    .step-card h4 { margin-bottom: 7px; font-size: 20px; line-height: 1.12; }
+    .step-card p { color: var(--muted); font-size: 13.5px; line-height: 1.62; }
+
+    .journey-card {
+      padding: 22px;
+      border-radius: 24px;
+      transition: .2s var(--ease);
+    }
+
+    .journey-year {
+      display: inline-flex;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 11%, transparent);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .06em;
+    }
+
+    .journey-card h3 { margin-bottom: 9px; font-size: 22px; line-height: 1.08; }
+    .journey-card p { color: var(--muted); font-size: 13.5px; line-height: 1.62; }
+
+    .contact-card {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(24px, 4.2vw, 36px);
+      border-radius: 30px;
+    }
+
+    .contact-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 90% 20%, rgba(57,255,142,.12), transparent 21rem);
+    }
+
+    .contact-card h2 {
+      position: relative;
+      max-width: 860px;
+      margin-bottom: 14px;
+      font-size: clamp(34px, 5vw, 64px);
+      line-height: .98;
+      letter-spacing: -.07em;
+    }
+
+    .contact-card p {
+      position: relative;
+      max-width: 720px;
+      margin-bottom: 22px;
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.68;
+    }
+
+    .contact-actions {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .contact-grid {
+      position: relative;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .contact-mini {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 14px;
+      border-radius: 18px;
+      transition: .2s var(--ease);
+    }
+
+    .contact-mini-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border: 1px solid color-mix(in srgb, var(--accent) 14%, var(--line));
+      border-radius: 14px;
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+    }
+
+    .contact-mini-icon svg { width: 20px; height: 20px; }
+    .contact-mini small {
+      display: block;
+      color: var(--muted-2);
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .contact-mini strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .contact-mini span {
+      display: block;
+      max-width: 100%;
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 11.5px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .footer {
+      padding: 28px 0 46px;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-inner {
+      width: var(--container);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 13.5px;
+    }
+
+    .back-top { color: var(--accent); font-weight: 800; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .48s var(--ease), transform .48s var(--ease);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1180px) {
+      .hero-grid,
+      .workflow-grid,
+      .section-head {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head { align-items: start; }
+
+      .visual-wrap {
+        max-width: 620px;
+        width: 100%;
+        min-height: auto;
+        margin-inline: auto;
+      }
+
+      .browser-card { margin-inline: auto; }
+      .stack-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .contact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 980px) {
+      .menu-btn { display: grid; place-items: center; }
+
+      .nav {
+        align-items: center;
+        border-radius: 24px;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 78px;
+        left: 14px;
+        right: 14px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: color-mix(in srgb, var(--card) 96%, transparent);
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links.open { display: flex; }
+      .nav-links a { justify-content: center; }
+
+      .hero {
+        padding-top: 138px;
+      }
+
+      .hero-quickmeta {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .photo-stage { min-height: 0; }
+      .photo-frame {
+        width: 100%;
+        height: clamp(390px, 60vw, 500px);
+      }
+
+      .panel-mini,
+      .panel-stack {
+        display: none;
+      }
+
+      .code-window {
+        position: relative;
+        left: 0;
+        bottom: auto;
+        width: 100%;
+        margin-top: 12px;
+        animation: none;
+      }
+    }
+
+    @media (max-width: 760px) {
+      :root { --container: min(100% - 28px, 1180px); }
+
+      body::after { background-size: 46px 46px; opacity: .17; }
+
+      .nav {
+        width: calc(100% - 18px);
+        top: 8px;
+        gap: 8px;
+        padding: 9px;
+        border-radius: 20px;
+        flex-wrap: wrap;
+      }
+
+      .brand { font-size: 17px; }
+      .brand-mark,
+      .menu-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 13px;
+      }
+
+      .nav-tools {
+        width: 100%;
+        justify-content: space-between;
+        margin-left: 0;
+      }
+
+      .switcher button {
+        min-height: 28px;
+        padding: 0 8px;
+        font-size: 10.5px;
+      }
+
+      .hero {
+        padding-top: 166px;
+        padding-bottom: 50px;
+      }
+
+      .status-pill {
+        padding: 8px 11px;
+        font-size: 10px;
+        letter-spacing: .08em;
+      }
+
+      .headline {
+        font-size: clamp(36px, 12vw, 52px);
+        line-height: 1;
+        letter-spacing: -.052em;
+      }
+
+      .hero-copy {
+        font-size: 15px;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+        min-height: 49px;
+        font-size: 14px;
+      }
+
+      .hero-quickmeta,
+      .stack-grid,
+      .work-grid,
+      .journey-grid,
+      .workflow-points,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quickmeta strong { font-size: 22px; }
+
+      .browser-card {
+        padding: 12px;
+        border-radius: 22px;
+      }
+
+      .browser-url { font-size: 10.5px; }
+      .photo-stage {
+        padding: 12px;
+        border-radius: 20px;
+      }
+
+      .photo-frame {
+        height: clamp(350px, 98vw, 410px);
+        border-radius: 20px;
+      }
+
+      .section { padding: 60px 0; }
+
+      .section-title {
+        font-size: clamp(28px, 9.5vw, 40px);
+        line-height: 1.04;
+      }
+
+      .section-desc { font-size: 14px; }
+
+      .stack-card,
+      .project-card,
+      .workflow-main,
+      .step-card,
+      .journey-card,
+      .contact-card,
+      .contact-mini {
+        border-radius: 20px;
+      }
+
+      .workflow-main,
+      .contact-card {
+        padding: 20px;
+      }
+
+      .workflow-main h3 {
+        font-size: clamp(24px, 7.5vw, 32px);
+      }
+
+      .contact-card h2 {
+        font-size: clamp(30px, 10vw, 42px);
+      }
+
+      .contact-actions .btn {
+        width: 100%;
+      }
+
+      .footer-inner {
+        width: var(--container);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body data-theme="dark">
+  <div class="scroll-progress" id="progress"></div>
+
+  <nav class="nav" id="nav">
+    <a href="#home" class="brand" aria-label="Back to top">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M8 7 3 12l5 5M16 7l5 5-5 5M14 4l-4 16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span>Fikri<span style="color:var(--accent)">.dev</span></span>
+    </a>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" type="button">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" data-i18n="nav.home">Home</a></li>
+      <li><a href="#stack" data-i18n="nav.stack">Stack</a></li>
+      <li><a href="#work" data-i18n="nav.work">Work</a></li>
+      <li><a href="#workflow" data-i18n="nav.workflow">Workflow</a></li>
+      <li><a href="#journey" data-i18n="nav.journey">Journey</a></li>
+      <li><a class="nav-cta" href="mailto:fikridhan4@gmail.com" data-i18n="nav.hire">Hire Me</a></li>
+    </ul>
+
+    <div class="nav-tools">
+      <div class="switcher" aria-label="Language switcher">
+        <button id="langIdBtn" class="active" type="button">ID</button>
+        <button id="langEnBtn" type="button">EN</button>
+      </div>
+      <div class="switcher" aria-label="Theme switcher">
+        <button id="themeDarkBtn" class="active" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-i18n="nav.dark">Dark</span>
+        </button>
+        <button id="themeLightBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span data-i18n="nav.light">White</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copybox">
+          <div class="status-pill reveal"><span class="status-dot"></span><span data-i18n="hero.status">Available for Web Projects</span></div>
+          <h1 class="headline reveal" data-i18n="hero.title">Building clean, fast, and serious <span class="grad">digital products.</span></h1>
+          <p class="hero-copy reveal" data-i18n="hero.desc">Saya Fikri Alvi Ramadhan, Full Stack Programmer & Data Analyst. Saya fokus membangun website, dashboard, dan sistem digital yang rapi, responsif, aman, serta siap dipakai untuk kebutuhan bisnis maupun personal brand.</p>
+
+          <div class="hero-actions reveal">
+            <a class="btn btn-primary" href="#work"><span data-i18n="hero.cta1">Lihat Project</span><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="btn btn-ghost" href="mailto:fikridhan4@gmail.com" data-i18n="hero.cta2">Email Saya</a>
+          </div>
+
+          <div class="hero-socials reveal" aria-label="Social links">
+            <a class="icon-btn" href="https://github.com/Fikrialv" target="_blank" rel="noopener noreferrer nofollow" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A12 12 0 0 0 8.2 23.9c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.3-1.2-1.7-1.2-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1.6 2.9 3.4 2 .1-.7.4-1.2.7-1.5-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg></a>
+            <a class="icon-btn" href="https://www.linkedin.com/in/fikrialvi-r" target="_blank" rel="noopener noreferrer nofollow" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0ZM.5 8h4v15h-4V8Zm7.5 0h3.8v2h.1c.5-1 1.9-2.3 4-2.3 4.3 0 5.1 2.8 5.1 6.5V23h-4v-7.8c0-1.9 0-4.2-2.6-4.2s-3 2-3 4.1V23h-4V8Z"/></svg></a>
+            <a class="icon-btn" href="https://www.instagram.com/vi.4lv" target="_blank" rel="noopener noreferrer nofollow" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a>
+            <a class="icon-btn" href="mailto:fikridhan4@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+
+          <div class="hero-quickmeta reveal">
+            <div class="quickmeta"><strong>10+</strong><span data-i18n="hero.stat1">Projects built</span></div>
+            <div class="quickmeta"><strong>Full Stack</strong><span data-i18n="hero.stat2">Web system focus</span></div>
+            <div class="quickmeta"><strong>Responsive</strong><span data-i18n="hero.stat3">Mobile first ready</span></div>
+          </div>
+        </div>
+
+        <div class="visual-wrap reveal">
+          <div class="browser-card">
+            <div class="browser-top"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><div class="browser-url">https://fikri.dev/system-ready</div></div>
+            <div class="photo-stage">
+              <div class="photo-frame"><img src="foto.jpeg" alt="Foto Fikri Alvi Ramadhan" /></div>
+            </div>
+          </div>
+
+          <div class="floating-panel panel-mini reveal">
+            <div class="mini-label" data-i18n="hero.panel1label">Current focus</div>
+            <div class="mini-value">
+              <svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M5 5h14v4H5zM5 10h14v9H5z" stroke="currentColor" stroke-width="2"/><path d="M8 14h3M8 17h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <span data-i18n="hero.panel1value">Web, dashboard & personal brand</span>
+            </div>
+          </div>
+
+          <div class="code-window reveal">
+            <span class="code-muted">fikri@portfolio:~$</span> <span class="typing">npm run build</span><br>
+            <span class="code-line" data-i18n="hero.code1">✓ responsive UI compiled</span>
+            <span class="code-line" data-i18n="hero.code2">✓ realistic user photo enabled</span>
+            <span class="code-line" data-i18n="hero.code3">✓ bilingual & theme switch ready</span>
+          </div>
+
+          <div class="floating-panel panel-stack reveal">
+            <h4 data-i18n="hero.panel2title">Core strengths</h4>
+            <div class="skill-bars">
+              <div class="bar"><small>Frontend UI</small><div class="progress-line"><span style="width:88%"></span></div></div>
+              <div class="bar"><small>Laravel & Backend</small><div class="progress-line"><span style="width:84%"></span></div></div>
+              <div class="bar"><small>Data & Database</small><div class="progress-line"><span style="width:79%"></span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span class="marquee-item"><svg viewBox="0 0 24 24" fill="none"><path d="m8 7-5 5 5 5M16 7l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Laravel</span>
+        <span class="marquee-item">PHP</span><span class="marquee-item">JavaScript</span><span class="marquee-item">MySQL</span><span class="marquee-item">Python</span><span class="marquee-item">Dashboard</span><span class="marquee-item">Portfolio</span><span class="marquee-item">Responsive</span><span class="marquee-item">SEO Ready</span><span class="marquee-item">GitHub Pages</span>
+        <span class="marquee-item"><svg viewBox="0 0 24 24" fill="none"><path d="m8 7-5 5 5 5M16 7l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Laravel</span>
+        <span class="marquee-item">PHP</span><span class="marquee-item">JavaScript</span><span class="marquee-item">MySQL</span><span class="marquee-item">Python</span><span class="marquee-item">Dashboard</span><span class="marquee-item">Portfolio</span><span class="marquee-item">Responsive</span><span class="marquee-item">SEO Ready</span><span class="marquee-item">GitHub Pages</span>
+      </div>
+    </div>
+
+    <section class="section" id="stack">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><p class="eyebrow" data-i18n="stack.eyebrow">Tech Stack</p><h2 class="section-title" data-i18n="stack.title">Tools yang saya pakai untuk build produk.</h2></div>
+          <p class="section-desc" data-i18n="stack.desc">Dibuat lebih programmer: stack jelas, kemampuan jelas, dan visual tidak terasa seperti template portfolio biasa.</p>
+        </div>
+        <div class="stack-grid">
+          <article class="stack-card reveal"><span class="stack-tag">01</span><div class="stack-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v14H4V5Zm4 4h8M8 13h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><h3 data-i18n="stack.card1title">Frontend UI</h3><p data-i18n="stack.card1desc">HTML, CSS, JavaScript, responsive layout, animation, dan UI micro-interaction.</p></article>
+          <article class="stack-card reveal"><span class="stack-tag">02</span><div class="stack-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M6 7h8a4 4 0 0 1 0 8H6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><h3 data-i18n="stack.card2title">Backend Logic</h3><p data-i18n="stack.card2desc">PHP, Laravel, routing, controller, authentication flow, dan struktur database.</p></article>
+          <article class="stack-card reveal"><span class="stack-tag">03</span><div class="stack-icon"><svg viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="6" rx="7" ry="3" stroke="currentColor" stroke-width="2"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3" stroke="currentColor" stroke-width="2"/></svg></div><h3 data-i18n="stack.card3title">Database</h3><p data-i18n="stack.card3desc">MySQL, Oracle, SQLite, desain tabel, query, relasi, dan reporting.</p></article>
+          <article class="stack-card reveal"><span class="stack-tag">04</span><div class="stack-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5M4 19h16M8 16v-5M12 16V8M16 16v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><h3 data-i18n="stack.card4title">Data Insight</h3><p data-i18n="stack.card4desc">Python, SQL analysis, dashboard, visualization, dan pengambilan insight dari data.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="work">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow" data-i18n="work.eyebrow">Selected Work</p>
+            <h2 class="section-title" data-i18n="work.title">Project cards yang lebih tegas dan recruiter-friendly.</h2>
+          </div>
+        </div>
+
+        <div class="work-grid">
+          <article class="project-card reveal">
+            <div class="project-screen project-image-screen">
+              <img src="assets/creativ-co.jpg" alt="Preview website CREATIV.co" loading="lazy" decoding="async">
+            </div>
+            <div class="project-body">
+              <span class="project-label" data-i18n="work.label1">Web App</span>
+              <h3 data-i18n="work.card1title">CREATIV.co</h3>
+              <p data-i18n="work.card1desc">Website digital agency untuk jasa pembuatan website, landing page, dan profile bisnis berbasis HTML, CSS, dan JavaScript.</p>
+              <div class="chips" aria-label="Tech stack CREATIV.co">
+                <span class="chip">HTML</span>
+                <span class="chip">CSS</span>
+                <span class="chip">JS</span>
+              </div>
+            </div>
+            <a class="project-link" href="https://fikrialv.github.io/CREATIV.co/" target="_blank" rel="noopener noreferrer nofollow" aria-label="Buka project CREATIV.co">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-screen project-image-screen">
+              <img src="assets/FINELLE.jpg" alt="Preview ROI Ads Calculator FINELLE" loading="lazy" decoding="async">
+            </div>
+            <div class="project-body">
+              <span class="project-label" data-i18n="work.label2">Marketing Tool</span>
+              <h3 data-i18n="work.card2title">FINELLE.</h3>
+              <p data-i18n="work.card2desc">ROI Ads Calculator untuk menghitung ROAS, ROI, profit bersih, cost per order, dan membaca performa campaign digital.</p>
+              <div class="chips" aria-label="Tech stack FINELLE">
+                <span class="chip">HTML</span>
+                <span class="chip">CSS</span>
+                <span class="chip">JS</span>
+              </div>
+            </div>
+            <a class="project-link" href="https://fikrialv.github.io/roi-ads-calculator/" target="_blank" rel="noopener noreferrer nofollow" aria-label="Buka project FINELLE ROI Ads Calculator">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-screen project-image-screen">
+              <img src="assets/todo-list.jpg" alt="Preview Todo List App" loading="lazy" decoding="async">
+            </div>
+            <div class="project-body">
+              <span class="project-label" data-i18n="work.label3">Live App</span>
+              <h3 data-i18n="work.card3title">Todo List App</h3>
+              <p data-i18n="work.card3desc">Website todo list kegiatan keseharian, kulaih, kerja dan lain-lain. jadi bisa dikerjakan seenak kamu</p>
+              <div class="chips" aria-label="Tech stack portfolio">
+                <span class="chip">HTML</span>
+                <span class="chip">CSS</span>
+                <span class="chip">JS</span>
+              </div>
+            </div>
+            <a class="project-link" href="https://fikrialv.github.io/todo-list-app/" target="_blank" rel="noopener noreferrer nofollow" aria-label="Buka repository GitHub portfolio">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="workflow">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><p class="eyebrow" data-i18n="workflow.eyebrow">Workflow</p><h2 class="section-title" data-i18n="workflow.title">Cara saya mengeksekusi project dengan alur yang jelas.</h2></div>
+        </div>
+
+        <div class="workflow-grid">
+          <div class="workflow-main reveal">
+            <h3 data-i18n="workflow.mainTitle">Saya tidak langsung coding — saya mulai dari kebutuhan, struktur, lalu eksekusi yang rapi.</h3>
+            <p data-i18n="workflow.mainDesc">Workflow ini dibuat untuk menjelaskan bahwa setiap project saya dikerjakan dengan urutan yang masuk akal: memahami tujuan, merancang pengalaman user, mengembangkan sistem, lalu menguji dan merilis hasil akhirnya. Jadi bagian workflow bukan sekadar hiasan, tapi menunjukkan pola kerja yang profesional.</p>
+
+            <div class="workflow-points">
+              <div class="workflow-point"><div class="wp-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div><h4 data-i18n="workflow.point1title">Clarity first</h4><p data-i18n="workflow.point1desc">Fokus ke tujuan, user, dan fitur inti sebelum masuk desain atau coding.</p></div></div>
+              <div class="workflow-point"><div class="wp-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v14H4V5Zm4 4h8M8 13h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div><h4 data-i18n="workflow.point2title">Structured build</h4><p data-i18n="workflow.point2desc">UI, logic, database, dan integrasi dikerjakan dengan struktur yang jelas.</p></div></div>
+              <div class="workflow-point"><div class="wp-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h4l2 5 4-10 2 5h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h4 data-i18n="workflow.point3title">Reliable testing</h4><p data-i18n="workflow.point3desc">Responsive check, performance, dan validasi flow dilakukan sebelum publish.</p></div></div>
+              <div class="workflow-point"><div class="wp-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="m7 10 5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div><h4 data-i18n="workflow.point4title">Ready to ship</h4><p data-i18n="workflow.point4desc">Hasil akhir siap dipasang ke GitHub Pages atau hosting sesuai kebutuhan project.</p></div></div>
+            </div>
+
+            <div class="terminal">
+              <span style="color:var(--muted-2)">$ workflow --mode production</span><br>
+              <span data-i18n="workflow.terminal1">01 discover the actual goal</span><br>
+              <span data-i18n="workflow.terminal2">02 design clean user flow</span><br>
+              <span data-i18n="workflow.terminal3">03 build frontend + backend</span><br>
+              <span data-i18n="workflow.terminal4">04 test, optimize, and deploy</span>
+            </div>
+          </div>
+
+          <div class="steps">
+            <article class="step-card reveal"><div class="step-top"><div class="step-badge"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>01 / Discover</div><div class="step-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></div><h4 data-i18n="workflow.step1title">Pahami kebutuhan</h4><p data-i18n="workflow.step1desc">Menggali tujuan website, target user, alur bisnis, fitur utama, dan referensi visual agar arah project lebih akurat.</p></article>
+            <article class="step-card reveal"><div class="step-top"><div class="step-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v14H4V5Zm4 4h8M8 13h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>02 / Build</div><div class="step-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></div><h4 data-i18n="workflow.step2title">Desain & coding</h4><p data-i18n="workflow.step2desc">Membuat UI responsive, struktur halaman, komponen, database, dan integrasi fitur secara bertahap.</p></article>
+            <article class="step-card reveal"><div class="step-top"><div class="step-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h4l2 5 4-10 2 5h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>03 / Verify</div><div class="step-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></div><h4 data-i18n="workflow.step3title">Testing & review</h4><p data-i18n="workflow.step3desc">Cek tampilan mobile, performa dasar, link, animasi, dan user flow agar hasilnya tidak terasa setengah jadi.</p></article>
+            <article class="step-card reveal"><div class="step-top"><div class="step-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="m7 10 5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>04 / Ship</div><div class="step-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></div><h4 data-i18n="workflow.step4title">Publish</h4><p data-i18n="workflow.step4desc">Deploy ke GitHub Pages atau hosting, lalu siap dipakai, dikirim ke recruiter, atau ditunjukkan ke klien.</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="journey">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><p class="eyebrow" data-i18n="journey.eyebrow">Journey</p><h2 class="section-title" data-i18n="journey.title">Perjalanan singkat sebagai programmer.</h2></div>
+        </div>
+        <div class="journey-grid">
+          <article class="journey-card reveal"><div class="journey-year">2025</div><h3 data-i18n="journey.card1title">Started Building Web Projects</h3><p data-i18n="journey.card1desc">Mulai membangun website, portfolio, landing page, dan sistem sederhana.</p></article>
+          <article class="journey-card reveal"><div class="journey-year">2026</div><h3 data-i18n="journey.card2title">Full Stack & Data Focus</h3><p data-i18n="journey.card2desc">Mengembangkan skill Laravel, MySQL, dashboard, dan analisis data.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact-card reveal">
+          <p class="eyebrow" data-i18n="contact.eyebrow">Contact</p>
+          <h2 data-i18n="contact.title">Butuh website yang terlihat serius dan siap dipakai?</h2>
+          <p data-i18n="contact.desc">Hubungi saya untuk project website, portfolio, landing page, dashboard, atau sistem berbasis Laravel dan database. Semua tombol di bawah langsung mengarah ke URL masing-masing.</p>
+          <div class="contact-actions">
+            <a class="btn btn-primary" href="mailto:fikridhan4@gmail.com"><span data-i18n="contact.cta1">Send Email</span><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="btn btn-ghost" href="https://github.com/Fikrialv" target="_blank" rel="noopener noreferrer nofollow"><span data-i18n="contact.cta2">Open GitHub</span></a>
+          </div>
+          <div class="contact-grid">
+            <a class="contact-mini" href="mailto:fikridhan4@gmail.com"><div class="contact-mini-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6Z" stroke="currentColor" stroke-width="2"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div><small>Email</small><strong data-i18n="contact.card1title">Fast response</strong></div></a>
+            <a class="contact-mini" href="https://www.linkedin.com/in/fikrialvi-r" target="_blank" rel="noopener noreferrer nofollow"><div class="contact-mini-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0ZM.5 8h4v15h-4V8Zm7.5 0h3.8v2h.1c.5-1 1.9-2.3 4-2.3 4.3 0 5.1 2.8 5.1 6.5V23h-4v-7.8c0-1.9 0-4.2-2.6-4.2s-3 2-3 4.1V23h-4V8Z"/></svg></div><div><small>LinkedIn</small><strong data-i18n="contact.card2title">Professional profile</strong></div></a>
+            <a class="contact-mini" href="https://github.com/Fikrialv" target="_blank" rel="noopener noreferrer nofollow"><div class="contact-mini-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A12 12 0 0 0 8.2 23.9c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.3-1.2-1.7-1.2-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1.6 2.9 3.4 2 .1-.7.4-1.2.7-1.5-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg></div><div><small>GitHub</small><strong data-i18n="contact.card3title">Code & repos</strong></div></a>
+            <a class="contact-mini" href="https://www.instagram.com/vi.4lv" target="_blank" rel="noopener noreferrer nofollow"><div class="contact-mini-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></div><div><small>Instagram</small><strong data-i18n="contact.card4title">Casual update</strong></div></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span data-i18n="footer.copy">© 2026 Fikri Alvi Ramadhan. Built for GitHub Pages.</span>
+      <a class="back-top" href="#home" data-i18n="footer.top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      id: {
+        "nav.home":"Home","nav.stack":"Stack","nav.work":"Work","nav.workflow":"Workflow","nav.journey":"Journey","nav.hire":"Hire Me","nav.dark":"Dark","nav.light":"White",
+        "hero.status":"Available for Web Projects","hero.title":"Building clean, fast, and serious <span class='grad'>digital products.</span>","hero.desc":"Saya Fikri Alvi Ramadhan, Full Stack Programmer & Data Analyst. Saya fokus membangun website, dashboard, dan sistem digital yang rapi, responsif, aman, serta siap dipakai untuk kebutuhan bisnis maupun personal brand.","hero.cta1":"Lihat Project","hero.cta2":"Email Saya","hero.stat1":"Projects built","hero.stat2":"Web system focus","hero.stat3":"Mobile first ready","hero.panel1label":"Fokus saat ini","hero.panel1value":"Web, dashboard & personal brand","hero.panel2title":"Kekuatan utama","hero.code1":"✓ responsive UI compiled","hero.code2":"✓ realistic user photo enabled","hero.code3":"✓ bilingual & theme switch ready",
+        "stack.eyebrow":"Tech Stack","stack.title":"Tools yang saya pakai untuk build produk.","stack.desc":"Dibuat lebih programmer: stack jelas, kemampuan jelas, dan visual tidak terasa seperti template portfolio biasa.","stack.card1title":"Frontend UI","stack.card1desc":"HTML, CSS, JavaScript, responsive layout, animation, dan UI micro-interaction.","stack.card2title":"Backend Logic","stack.card2desc":"PHP, Laravel, routing, controller, authentication flow, dan struktur database.","stack.card3title":"Database","stack.card3desc":"MySQL, Oracle, SQLite, desain tabel, query, relasi, dan reporting.","stack.card4title":"Data Insight","stack.card4desc":"Python, SQL analysis, dashboard, visualization, dan pengambilan insight dari data.",
+        "work.eyebrow":"Selected Work","work.title":"Project cards yang lebih tegas dan recruiter-friendly.","work.desc":"Beberapa project yang sudah siap dilihat melalui GitHub Pages.","work.label1":"Web App","work.card1title":"CREATIV.co","work.card1desc":"Website digital agency untuk jasa pembuatan website, landing page, dan profile bisnis berbasis HTML, CSS, dan JavaScript.","work.label2":"Marketing Tool","work.card2title":"FINELLE.","work.card2desc":"ROI Ads Calculator untuk menghitung ROAS, ROI, profit bersih, cost per order, dan membaca performa campaign digital.","work.label3":"Portfolio","work.card3title":"Personal Brand Website","work.card3desc":"Website portfolio dark, responsive, SEO-ready, dengan animasi, toggle bahasa, dan mode dark/light.",
+        "workflow.eyebrow":"Workflow","workflow.title":"Cara saya mengeksekusi project dengan alur yang jelas.","workflow.desc":"Bagian ini saya perjelas supaya calon klien atau recruiter cepat paham cara kerja saya, bukan cuma lihat skill dan foto.","workflow.mainTitle":"Saya tidak langsung coding — saya mulai dari kebutuhan, struktur, lalu eksekusi yang rapi.","workflow.mainDesc":"Workflow ini dibuat untuk menjelaskan bahwa setiap project saya dikerjakan dengan urutan yang masuk akal: memahami tujuan, merancang pengalaman user, mengembangkan sistem, lalu menguji dan merilis hasil akhirnya. Jadi bagian workflow bukan sekadar hiasan, tapi menunjukkan pola kerja yang profesional.","workflow.point1title":"Clarity first","workflow.point1desc":"Fokus ke tujuan, user, dan fitur inti sebelum masuk desain atau coding.","workflow.point2title":"Structured build","workflow.point2desc":"UI, logic, database, dan integrasi dikerjakan dengan struktur yang jelas.","workflow.point3title":"Reliable testing","workflow.point3desc":"Responsive check, performance, dan validasi flow dilakukan sebelum publish.","workflow.point4title":"Ready to ship","workflow.point4desc":"Hasil akhir siap dipasang ke GitHub Pages atau hosting sesuai kebutuhan project.","workflow.terminal1":"01 discover the actual goal","workflow.terminal2":"02 design clean user flow","workflow.terminal3":"03 build frontend + backend","workflow.terminal4":"04 test, optimize, and deploy","workflow.step1title":"Pahami kebutuhan","workflow.step1desc":"Menggali tujuan website, target user, alur bisnis, fitur utama, dan referensi visual agar arah project lebih akurat.","workflow.step2title":"Desain & coding","workflow.step2desc":"Membuat UI responsive, struktur halaman, komponen, database, dan integrasi fitur secara bertahap.","workflow.step3title":"Testing & review","workflow.step3desc":"Cek tampilan mobile, performa dasar, link, animasi, dan user flow agar hasilnya tidak terasa setengah jadi.","workflow.step4title":"Publish","workflow.step4desc":"Deploy ke GitHub Pages atau hosting, lalu siap dipakai, dikirim ke recruiter, atau ditunjukkan ke klien.",
+        "journey.eyebrow":"Journey","journey.title":"Perjalanan singkat sebagai programmer.","journey.desc":"Bagian ini bisa kamu sesuaikan dengan pengalaman asli, sertifikasi, lomba, atau project kampus.","journey.card1title":"Started Building Web Projects","journey.card1desc":"Mulai membangun website, portfolio, landing page, dan sistem sederhana.","journey.card2title":"Full Stack & Data Focus","journey.card2desc":"Mengembangkan skill Laravel, MySQL, dashboard, dan analisis data.","journey.card3title":"Product-Minded Developer","journey.card3desc":"Fokus membuat produk digital yang terlihat premium, cepat, dan siap dipakai.",
+        "contact.eyebrow":"Contact","contact.title":"Butuh website yang terlihat serius dan siap dipakai?","contact.desc":"Hubungi saya untuk project website, portfolio, landing page, dashboard, atau sistem berbasis Laravel dan database. Semua tombol di bawah langsung mengarah ke URL masing-masing.","contact.cta1":"Send Email","contact.cta2":"Open GitHub","contact.card1title":"Fast response","contact.card2title":"Professional profile","contact.card3title":"Code & repos","contact.card4title":"Casual update","footer.copy":"© 2026 Fikri Alvi Ramadhan. Built for GitHub Pages.","footer.top":"Back to top ↑"
+      },
+      en: {
+        "nav.home":"Home","nav.stack":"Stack","nav.work":"Work","nav.workflow":"Workflow","nav.journey":"Journey","nav.hire":"Hire Me","nav.dark":"Dark","nav.light":"Light",
+        "hero.status":"Available for Web Projects","hero.title":"Building clean, fast, and serious <span class='grad'>digital products.</span>","hero.desc":"I’m Fikri Alvi Ramadhan, a Full Stack Programmer & Data Analyst. I focus on building websites, dashboards, and digital systems that feel clean, responsive, secure, and ready for business or personal brand use.","hero.cta1":"View Projects","hero.cta2":"Email Me","hero.stat1":"Projects built","hero.stat2":"Web system focus","hero.stat3":"Mobile first ready","hero.panel1label":"Current focus","hero.panel1value":"Web, dashboard & personal brand","hero.panel2title":"Core strengths","hero.code1":"✓ responsive UI compiled","hero.code2":"✓ realistic user photo enabled","hero.code3":"✓ bilingual & theme switch ready",
+        "stack.eyebrow":"Tech Stack","stack.title":"Tools I use to build digital products.","stack.desc":"Built to feel more technical: clear stack, clear strengths, and a visual style that does not feel like a generic portfolio template.","stack.card1title":"Frontend UI","stack.card1desc":"HTML, CSS, JavaScript, responsive layout, animation, and UI micro-interactions.","stack.card2title":"Backend Logic","stack.card2desc":"PHP, Laravel, routing, controller structure, authentication flow, and database architecture.","stack.card3title":"Database","stack.card3desc":"MySQL, Oracle, SQLite, schema design, queries, relations, and reporting.","stack.card4title":"Data Insight","stack.card4desc":"Python, SQL analysis, dashboards, visualization, and extracting insight from data.",
+        "work.eyebrow":"Selected Work","work.title":"Sharper project cards that feel recruiter-friendly.","work.desc":"Live-ready projects published through GitHub Pages.","work.label1":"Web App","work.card1title":"CREATIV.co","work.card1desc":"A digital agency website for website services, landing pages, and business profile pages built with HTML, CSS, and JavaScript.","work.label2":"Marketing Tool","work.card2title":"FINELLE.","work.card2desc":"An ROI Ads Calculator for calculating ROAS, ROI, net profit, cost per order, and digital campaign performance.","work.label3":"Portfolio","work.card3title":"Personal Brand Website","work.card3desc":"A dark responsive portfolio website with animation, language toggle, and dark/light mode.",
+        "workflow.eyebrow":"Workflow","workflow.title":"How I execute a project with a clear process.","workflow.desc":"This section is here so a recruiter or client can quickly understand how I work — not just see skills and a profile photo.","workflow.mainTitle":"I do not jump straight into code — I start with the need, the structure, then a clean execution.","workflow.mainDesc":"This workflow is meant to show that every project follows a practical sequence: understanding the goal, designing the user experience, building the system, then testing and shipping the final result. So the workflow is not just decoration — it shows a professional work pattern.","workflow.point1title":"Clarity first","workflow.point1desc":"Focus on the goal, the user, and the core features before touching design or code.","workflow.point2title":"Structured build","workflow.point2desc":"UI, logic, database, and integrations are developed with a clear structure.","workflow.point3title":"Reliable testing","workflow.point3desc":"Responsive checks, performance, and flow validation happen before publishing.","workflow.point4title":"Ready to ship","workflow.point4desc":"The final result is ready for GitHub Pages or hosting depending on the project.","workflow.terminal1":"01 discover the actual goal","workflow.terminal2":"02 design clean user flow","workflow.terminal3":"03 build frontend + backend","workflow.terminal4":"04 test, optimize, and deploy","workflow.step1title":"Understand the need","workflow.step1desc":"Explore the website goal, target users, business flow, key features, and visual references so the project direction is accurate.","workflow.step2title":"Design & code","workflow.step2desc":"Build the responsive UI, page structure, components, database, and feature integration in stages.","workflow.step3title":"Testing & review","workflow.step3desc":"Check mobile responsiveness, basic performance, links, animation, and user flow so the result does not feel unfinished.","workflow.step4title":"Publish","workflow.step4desc":"Deploy to GitHub Pages or hosting so it is ready to use, share with recruiters, or present to clients.",
+        "journey.eyebrow":"Journey","journey.title":"A short journey as a programmer.","journey.desc":"You can adjust this section with your real experience, certifications, competitions, or campus projects.","journey.card1title":"Started Building Web Projects","journey.card1desc":"Started building websites, portfolio pages, landing pages, and simple systems.","journey.card2title":"Full Stack & Data Focus","journey.card2desc":"Improved skills in Laravel, MySQL, dashboards, and data analysis.","journey.card3title":"Product-Minded Developer","journey.card3desc":"Focused on building digital products that feel premium, fast, and ready to use.",
+        "contact.eyebrow":"Contact","contact.title":"Need a website that looks serious and ready to use?","contact.desc":"Reach me for website projects, portfolios, landing pages, dashboards, or Laravel/database-based systems. Every button below points directly to its actual URL.","contact.cta1":"Send Email","contact.cta2":"Open GitHub","contact.card1title":"Fast response","contact.card2title":"Professional profile","contact.card3title":"Code & repos","contact.card4title":"Casual update","footer.copy":"© 2026 Fikri Alvi Ramadhan. Built for GitHub Pages.","footer.top":"Back to top ↑"
+      }
+    };
+
+    const nav = document.getElementById('nav');
+    const progress = document.getElementById('progress');
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    const langIdBtn = document.getElementById('langIdBtn');
+    const langEnBtn = document.getElementById('langEnBtn');
+    const themeDarkBtn = document.getElementById('themeDarkBtn');
+    const themeLightBtn = document.getElementById('themeLightBtn');
+
+
+    function savePref(key, value) {
+      try { localStorage.setItem(key, value); } catch (error) { /* localStorage may be blocked */ }
+    }
+
+    function readPref(key, fallback) {
+      try { return localStorage.getItem(key) || fallback; } catch (error) { return fallback; }
+    }
+
+    function setLanguage(lang) {
+      document.documentElement.lang = lang;
+      document.documentElement.dataset.lang = lang;
+      savePref('portfolio-lang', lang);
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (translations[lang] && translations[lang][key] !== undefined) el.innerHTML = translations[lang][key];
+      });
+      langIdBtn.classList.toggle('active', lang === 'id');
+      langEnBtn.classList.toggle('active', lang === 'en');
+    }
+
+    function setTheme(theme) {
+      document.body.dataset.theme = theme;
+      savePref('portfolio-theme', theme);
+      themeDarkBtn.classList.toggle('active', theme === 'dark');
+      themeLightBtn.classList.toggle('active', theme === 'light');
+    }
+
+    setLanguage(readPref('portfolio-lang', 'id'));
+    setTheme(readPref('portfolio-theme', 'dark'));
+
+    langIdBtn.addEventListener('click', () => setLanguage('id'));
+    langEnBtn.addEventListener('click', () => setLanguage('en'));
+    themeDarkBtn.addEventListener('click', () => setTheme('dark'));
+    themeLightBtn.addEventListener('click', () => setTheme('light'));
+
+    window.addEventListener('scroll', () => {
+      const height = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = height > 0 ? (window.scrollY / height) * 100 : 0;
+      progress.style.width = `${pct}%`;
+    }, { passive: true });
+
+    menuBtn.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .12, rootMargin: '0px 0px -55px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>
